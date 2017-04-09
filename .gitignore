@@ -1,0 +1,6 @@
+#Ignore only for development stage
+src/
+target/
+#Mac OS ignore
+.DS_Store
+
