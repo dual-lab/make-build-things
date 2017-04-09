@@ -1,0 +1,12 @@
+#  ############################################################################# #
+#  Author       : dmike
+#  Date         : 2,October 2016
+#  Description  : Principal Make file
+#
+#  Default KBUILD file that does not define only the language variable.
+#  Setting it to 'cc'.
+#
+#  ############################################################################# #
+languages := cc
+mode := color_
+debug := @
