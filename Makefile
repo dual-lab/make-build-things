@@ -193,7 +193,7 @@ clean : $(language_clean) $(clean_files)
 #
 # ============================================================================ #
 $(language_clean):
-	$(call makeclean,$(patsubst clean_%,%,$@),$(patsubst clean_%,%,$@))
+	$(call makeclean,$(patsubst clean_%,%,$@))
 $(clean_files):
 	$(call cmd,rm)
 
@@ -223,7 +223,7 @@ clobber : $(language_clobber) $(clobber_files)
 #
 # ============================================================================ #
 $(language_clobber):
-	$(call makeclobber,$(patsubst clobber_%,%,$@),$(patsubst clobber_%,%,$@))
+	$(call makeclobber,$(patsubst clobber_%,%,$@))
 $(clobber_files):
 	$(call cmd,rm)
 
