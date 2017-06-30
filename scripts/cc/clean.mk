@@ -17,8 +17,8 @@ clean_files:=
 # ============================================================================ #
 # Default target
 # ============================================================================ #
-PHONY := __cc_clean
-__cc_clean: mkclean = $(debug)$(MAKE) -f $(root)/scripts/cc/clean.mk marker=$@
+PHONY := cc_clean
+cc_clean: mkclean = $(debug)$(MAKE) -f $(root)/scripts/cc/clean.mk marker=$@
 # ============================================================================ #
 # include utils variable
 # ============================================================================ #
@@ -52,21 +52,21 @@ obj_clean := $(wildcard $(sort $(addprefix $(src_test_root)/$(marker)/,$(obj_tes
 # ============================================================================ #
 # Define begin and end clean command
 # ============================================================================ #
-quiet_cmd_init = $(call LOG,$(INFO),CC Clean Begin)
-color_cmd_init = $(c_cyang)$(quiet_cmd_init)
-cmd_init =
-quiet_cmd_end = $(call LOG,$(INFO),CC Clean End)
-color_cmd_end = $(c_cyang)$(quiet_cmd_end)
-cmd_end =
+quiet_cmd_init_clean = $(call LOG,$(INFO),== CC Clean in $(marker))
+color_cmd_init_clean = $(c_cyang)$(quiet_cmd_init_clean)
+cmd_init_clean =
+quiet_cmd_end_clean = $(call LOG,$(INFO),== CC Clean out $(marker))
+color_cmd_end_clean = $(c_cyang)$(quiet_cmd_end_clean)
+cmd_end_clean =
 # ============================================================================ #
 # Init target
 # ============================================================================ #
-PHONY += __cc_init
-__cc_clean: __cc_init $(deps) $(obj_dir) $(obj_src) $(obj_clean)
-	$(call cmd,end)
+PHONY += __cc_clean_init
+cc_clean: __cc_clean_init $(deps) $(obj_dir) $(obj_src) $(obj_clean)
+	$(call cmd,end_clean)
 
-__cc_init:
-	$(call cmd,init)
+__cc_clean_init:
+	$(call cmd,init_clean)
 
 PHONY += $(obj_clean)
 $(obj_clean):
