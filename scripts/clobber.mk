@@ -13,7 +13,7 @@ _clobber:
 PHONY += clobber
 _clobber: clobber
 
-clobber : makeclobber = $(MAKE) -f $(root)/scripts/$@/clobber.mk
+clobber : makeclobber = $(debug)$(MAKE) -f $(root)/scripts/$@/clobber.mk marker=$(obj)
 clobber : $(type)
 
 $(type):
