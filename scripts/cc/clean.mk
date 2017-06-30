@@ -45,8 +45,8 @@ obj_main_dirs := $(dirs)
 # ============================================================================ #
 obj_src   := $(wildcard $(sort $(addprefix $(target_test_root)/$(marker)/,$(obj_test))))  \
   $(wildcard $(sort $(addprefix  $(target_main_root)/$(marker)/,$(obj_main))))
-obj_dir   := $(wildcard $(sort $(addprefix $(marker)/,$(obj_test_dirs))))  \
-  $(wildcard $(sort $(addprefix $(marker)/,$(obj_main_dirs))))
+obj_dir   := $(sort $(addprefix $(marker)/,$(obj_test_dirs)))  \
+  $(sort $(addprefix $(marker)/,$(obj_main_dirs)))
 obj_clean := $(wildcard $(sort $(addprefix $(src_test_root)/$(marker)/,$(obj_test_clean))))  \
   $(wildcard $(sort $(addprefix $(src_main_root)/$(marker)/,$(obj_main_clean))))
 # ============================================================================ #
