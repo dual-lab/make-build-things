@@ -13,7 +13,7 @@ _clean:
 PHONY += clean
 _clean: clean
 
-clean : makeclean = $(debug)$(MAKE) -f $(root)/scripts/$@/clean.mk marker=$@
+clean : makeclean = $(debug)$(MAKE) -f $(root)/scripts/$@/clean.mk marker=$(obj)
 clean : $(type)
 
 $(type):

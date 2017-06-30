@@ -90,11 +90,17 @@ makebuild = $(debug)$(MAKE) -f $(root)/scripts/build.mk obj=$(1) type=$(1)
 makeclean = $(debug)$(MAKE) -f $(root)/scripts/clean.mk obj=$(1) type=$(1)
 # ============================================================================ #
 #
-# Function tha call the  relative leanguage specifications'  clobber  plugin
+# Function that call the  relative leanguage specifications'  clobber  plugin
 # Usage : $(call makeclobber src,type)
 #
 # ============================================================================ #
 makeclobber = $(debug)$(MAKE) -f $(root)/scripts/clobber.mk obj=$(1) type=$(1)
+# ============================================================================ #
+#
+# Function that fill the sub makefile with project dependencies
+#
+# ============================================================================ #
+makedep = $(debug)echo 'deps := $(1) \#Automatic Generated' >> $(2)/Makefile
 # ============================================================================ #
 #
 # Remove command.

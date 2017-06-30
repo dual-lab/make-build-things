@@ -108,16 +108,28 @@ export src_root src_main_root src_test_root \
  VPATH
 # ============================================================================ #
 #
-# Define the build target with order depencendecies
-# to create all necessary dependencies.
+# Extract the main languages from the ones defined in KBUILD
+# and the possible sub-languages defined like subdirs:
+# cpp/cc/
 #
 # ============================================================================ #
-language_dirs := $(addprefix $(src_main_root)/,$(languages)) \
-  $(addprefix $(src_test_root)/,$(languages)) \
-  $(addprefix $(target_main_root)/,$(languages)) \
-  $(addprefix $(target_test_root)/,$(languages))
+language_main := $(filter-out %/,$(languages))
+language_sub  := $(filter %/,$(languages))
+language_dirs := $(addprefix $(src_main_root)/,$(language_main)) \
+  $(addprefix $(src_test_root)/,$(language_main)) \
+  $(addprefix $(target_main_root)/,$(language_main)) \
+  $(addprefix $(target_test_root)/,$(language_main))
+language_sub_dirs := $(addprefix $(src_main_root)/,$(language_sub)) \
+  $(addprefix $(src_test_root)/,$(language_sub)) \
+  $(addprefix $(target_main_root)/,$(language_sub)) \
+  $(addprefix $(target_test_root)/,$(language_sub))
 $(language_dirs):
 	$(call cmd,mkdir)
+	$(call makedep,$(patsubst $(notdir $@)/%/,%,$(language_sub)),$@)
+$(language_sub_dirs):
+	$(call cmd,mkdir)
+PHONY += language_all_dirs
+language_all_dirs : $(language_dirs) $(language_sub_dirs)
 # ============================================================================ #
 #
 # Define the init recipe in order to initialize the
@@ -132,7 +144,7 @@ cmd_init = touch $(init_flag)
 ${init_flag} :
 	$(call cmd,init)
 PHONY += init
-init: | ${init_flag} $(language_dirs);
+init: | ${init_flag} language_all_dirs;
 # ============================================================================ #
 #
 # Define the build target in order to compile
@@ -156,7 +168,7 @@ build : init
 #
 # ============================================================================ #
 PHONY += clean
-language_clean := $(addprefix clean_,$(languages))
+language_clean := $(addprefix clean_,$(language_main))
 
 # ============================================================================ #
 #
@@ -186,7 +198,7 @@ $(clean_files):
 	$(call cmd,rm)
 
 PHONY += clobber
-language_clobber := $(addprefix clobber_,$(languages))
+language_clobber := $(addprefix clobber_,$(language_main))
 # ============================================================================ #
 #
 # Clobber specific variable: in particular defines the output command to

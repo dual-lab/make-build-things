@@ -7,6 +7,6 @@
 #  Setting it to 'cc'.
 #
 #  ############################################################################# #
-languages := cc
+languages := cc cc/py/ cc/java/
 mode := color_
 debug := @

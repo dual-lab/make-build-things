@@ -18,18 +18,19 @@ clean_files:=
 # Default target
 # ============================================================================ #
 PHONY := __cc_clean
-__cc_clean: makeclean = $(debug)$(MAKE) -f $(root)/scripts/cc/clean.mk marker=$@
+__cc_clean: mkclean = $(debug)$(MAKE) -f $(root)/scripts/cc/clean.mk marker=$@
 # ============================================================================ #
 # include utils variable
 # ============================================================================ #
 include $(root)/scripts/include.mk
 # ============================================================================ #
-# Include, if present, local makefile in which ara defined the files and the
+# Include, if present, local makefile in which are defined the files and the
 # directories contained in the upmost dir:
 #   src -> all source files
 #   dirs -> all directories
 #   clean-files -> optional file to be removed during clean recipe
-#   clobber-files -> optional file to be removeed dureing clobber recipe
+#   clobber-files -> optional file to be removed during clobber recipe
+#   deps -> possible project dependencies
 # ============================================================================ #
 -include $(src_test_root)/$(marker)/Makefile
 obj_test := $(src)
@@ -61,7 +62,7 @@ cmd_end =
 # Init target
 # ============================================================================ #
 PHONY += __cc_init
-__cc_clean: __cc_init $(obj_dir) $(obj_src) $(obj_clean)
+__cc_clean: __cc_init $(deps) $(obj_dir) $(obj_src) $(obj_clean)
 	$(call cmd,end)
 
 __cc_init:
@@ -77,6 +78,10 @@ $(obj_src):
 
 PHONY += $(obj_dir)
 $(obj_dir):
-	$(makeclean)
+	$(mkclean)
+
+PHONY += $(deps)
+$(deps):
+	$(call makeclean,$@,$@)
 
 .PHONY : $(PHONY)
