@@ -4,3 +4,4 @@ target/
 .initialize
 #Mac OS ignore
 .DS_Store
+.vscode/

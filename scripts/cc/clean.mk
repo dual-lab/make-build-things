@@ -28,16 +28,16 @@ include $(root)/scripts/include.mk
 # directories contained in the upmost dir:
 #   src -> all source files
 #   dirs -> all directories
-#   clean-files -> optional file to be removed during clean recipe
-#   clobber-files -> optional file to be removed during clobber recipe
+#   clean_files -> optional file to be removed during clean recipe
+#   clobber_files -> optional file to be removed during clobber recipe
 #   deps -> possible project dependencies
 # ============================================================================ #
 -include $(src_test_root)/$(marker)/Makefile
-obj_test := $(src)
+obj_test := $(patsubst %.c,%.o,$(src))
 obj_test_clean:= $(clean_files)
 obj_test_dirs := $(dirs)
 -include $(src_main_root)/$(marker)/Makefile
-obj_main := $(src)
+obj_main := $(patsubst %.c,%.o,$(src))
 obj_main_clean:= $(clean_files)
 obj_main_dirs := $(dirs)
 # ============================================================================ #

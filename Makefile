@@ -16,7 +16,7 @@
 #	- do not print working directories
 #
 # ============================================================================ #
-MAKEFLAGS += -rR --no-print-directory
+MAKEFLAGS += -rR --no-print-directory -s
 # ============================================================================ #
 #
 # Default target of principal Makefile

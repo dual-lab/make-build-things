@@ -109,7 +109,7 @@ makedep = $(debug)echo 'deps := $(1) \#Automatic Generated' >> $(2)/Makefile
 # ============================================================================ #
 quiet_cmd_rm = RM	$@
 color_cmd_rm = $(c_red)$(quiet_cmd_rm)
-cmd_rm = rm -rf $@
+cmd_rm = $(RM) -rf $@
 # ============================================================================ #
 #
 # Mkdir command.
@@ -118,4 +118,4 @@ cmd_rm = rm -rf $@
 # ============================================================================ #
 quiet_cmd_mkdir = MKDIR    $@
 color_cmd_mkdir = $(c_cyang)$(quiet_cmd_mkdir)
-cmd_mkdir = mkdir -p $@
+cmd_mkdir = $(MKDIR) -p $@
