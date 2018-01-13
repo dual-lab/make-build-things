@@ -62,7 +62,7 @@ c_black      := \033[30m
 kecho        := :
 quiet_kecho   = echo '$(1)';
 silent_kecho  = :
-color_kecho   = echo '$(1)$(c_reset)';
+color_kecho   = echo -e '$(1)$(c_reset)';
 
 echo-cmd = $(if $($(mode)cmd_$(1)),\
 	$(call $(mode)kecho,$(call escsq,$($(mode)cmd_$(1)))))

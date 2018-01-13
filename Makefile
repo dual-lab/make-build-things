@@ -16,7 +16,7 @@
 #	- do not print working directories
 #
 # ============================================================================ #
-MAKEFILEFLAGS += -rR --no-print-directory
+MAKEFLAGS += -rR --no-print-directory
 # ============================================================================ #
 #
 # Default target of principal Makefile
@@ -142,10 +142,10 @@ init_flag := .initialize
 quiet_cmd_init = $(call LOG,$(INFO),Init the project)
 color_cmd_init = $(c_magenta)$(quiet_cmd_init)
 cmd_init = touch $(init_flag)
-${init_flag} :
+$(init_flag) :
 	$(call cmd,init)
 PHONY += init
-init: | ${init_flag} language_all_dirs;
+init: | $(init_flag) language_all_dirs;
 # ============================================================================ #
 #
 # Define the build target in order to compile
