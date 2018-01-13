@@ -60,9 +60,9 @@ c_black      := \033[30m
 #ps. (*): default mode
 # ============================================================================ #
 kecho        := :
-quiet_kecho   = echo '$(1)';
+quiet_kecho   = printf  '$(1)\n';
 silent_kecho  = :
-color_kecho   = echo -e '$(1)$(c_reset)';
+color_kecho   = printf '$(1)$(c_reset)\n';
 
 echo-cmd = $(if $($(mode)cmd_$(1)),\
 	$(call $(mode)kecho,$(call escsq,$($(mode)cmd_$(1)))))
