@@ -96,6 +96,7 @@ languages ?= $(empty)
 ifeq ($(languages),$(empty))
  $(error $(call LOG,$(ERROR),$(E001_NO_LANGUAGE)))
 endif
+project_name ?= $(notdir $(patsubst %/,%,$(root)))
 src_root ?= $(root)/src
 src_main_root ?= $(src_root)/main
 src_test_root ?= $(src_root)/test
@@ -103,7 +104,7 @@ target_root ?= $(root)/target
 target_main_root ?=$(target_root)/$(notdir $(src_main_root))
 target_test_root ?= $(target_root)/$(notdir $(src_test_root))
 VPATH = $(src_root)
-export src_root src_main_root src_test_root \
+export project_name src_root src_main_root src_test_root \
  target_root target_main_root target_test_root \
  VPATH
 # ============================================================================ #
@@ -152,9 +153,11 @@ init: | ${init_flag} language_all_dirs;
 #
 # ============================================================================ #
 PHONY += build
-all: build
-build : init
-	#TODO
+all: init build
+build : $(language_main)
+
+$(language_main):
+	$(call makebuild,$@)
 
 # ============================================================================ #
 #

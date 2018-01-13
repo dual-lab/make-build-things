@@ -19,5 +19,4 @@ clean : $(type)
 $(type):
 	$(makeclean)
 
-
 .PHONY : $(PHONY)

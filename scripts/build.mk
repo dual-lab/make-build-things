@@ -13,7 +13,7 @@ _build:
 PHONY += build
 _build : build
 
-build : makebuild = $(MAKE) -f $(root)/scripts/$@/build.mk
+build : makebuild = $(debug)$(MAKE) -f $(root)/scripts/$@/build.mk marker=$(obj)
 build: $(type)
 
 $(type):
