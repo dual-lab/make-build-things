@@ -31,10 +31,10 @@ cc_build_target: $(cc_target)
 
 include $(root)/scripts/cc/_build_object.mk
 
-quiet_cmd_out = OUT	 $@
+quiet_cmd_out = OUT	$@
 color_cmd_out = $(c_green)$(quiet_cmd_out)
 cmd_out = $(CC) $(cflags) $(CFLAGS) $^ -o $@
-$(cc_target): $(cc_build_objects) #all obj files ,libs and project deps
+$(cc_target): $(cc_build_objects) $(cc_build_libs) #all obj files ,libs and project deps
 	$(call cmd,out)
 
 .PHONY: $(PHONY)
