@@ -40,6 +40,7 @@ endif
 
 ifneq ($(strip $(dirs)),$(empty))
 dirs := $(sort $(patsubst %/,%,$(dirs)))
+cflags += $(patsubst %,-I$(addprefix $(inp_dir)/,%),$(dirs))
 dirs_built_in += $(addprefix $(out_dir)/,$(addsuffix /$(built_in),$(dirs)))
 endif
 
