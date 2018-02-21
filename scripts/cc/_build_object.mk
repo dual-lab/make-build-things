@@ -47,6 +47,7 @@ endif
 ifneq ($(strip $(libs)),$(empty))
 libs := $(patsubst %/,%,$(libs))
 libs := $(filter-out $(dirs),$(libs))
+cflags += -L. $(addprefix -l,$(libs))
 cc_build_libs += $(addprefix $(out_dir)/,$(patsubst %,%.a,$(libs)))
 endif
 
@@ -81,7 +82,9 @@ $(cc_build_objects) : $(obj_in) $(dirs_built_in)
 # Static Lib build process
 # ============================================================================ #
 #TODO
+$(cc_build_libs): mkbuild = $(debug)$(MAKE) -f $(root)/scripts/cc/_build_static_lib.mk marker=$(addprefix $(marker)/,$@)
 $(cc_build_libs): 
+	$(mkbuild)
 
 # ============================================================================ #
 # Recursive subdirs walk
