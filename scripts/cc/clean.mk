@@ -34,17 +34,21 @@ include $(root)/scripts/include.mk
 # ============================================================================ #
 -include $(src_test_root)/$(marker)/Makefile
 obj_test := $(patsubst %.c,%.o,$(src))
+obj_test_d := $(obj_test:.o=.d)
 obj_test_clean:= $(clean_files)
 obj_test_dirs := $(dirs)
 -include $(src_main_root)/$(marker)/Makefile
 obj_main := $(patsubst %.c,%.o,$(src))
+obj_main_d := $(obj_main:.o=.d)
 obj_main_clean:= $(clean_files)
 obj_main_dirs := $(dirs)
 # ============================================================================ #
 # Join all the objects necessary to the clean recipe
 # ============================================================================ #
 obj_src   := $(wildcard $(sort $(addprefix $(target_test_root)/$(marker)/,$(obj_test))))  \
-  $(wildcard $(sort $(addprefix  $(target_main_root)/$(marker)/,$(obj_main))))
+  $(wildcard $(sort $(addprefix  $(target_test_root)/$(marker)/,$(obj_test_d)))) \
+  $(wildcard $(sort $(addprefix  $(target_main_root)/$(marker)/,$(obj_main)))) \
+  $(wildcard $(sort $(addprefix  $(target_main_root)/$(marker)/,$(obj_main_d))))
 obj_dir   := $(sort $(addprefix $(marker)/,$(obj_test_dirs)))  \
   $(sort $(addprefix $(marker)/,$(obj_main_dirs)))
 obj_clean := $(wildcard $(sort $(addprefix $(src_test_root)/$(marker)/,$(obj_test_clean))))  \

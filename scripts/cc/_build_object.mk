@@ -28,8 +28,8 @@ include $(root)/scripts/include.mk
 # ============================================================================ #
 # Format and sort inclued objects
 # ============================================================================ #
-# TODO
 obj_in := $(addprefix $(out_dir)/,$(patsubst %.c,%.o,$(src)))
+pre_in := $(addprefix $(out_dir)/,$(patsubst %.c,%.d,$(src)))
 cc_build_objects:= $(addsuffix /$(built_in),$(out_dir))
 cc_build_libs:=
 dirs_built_in:= 
@@ -54,15 +54,29 @@ endif
 __internal_build : $(cc_build_objects) $(cc_build_libs)
 
 # ============================================================================ #
+# Static pattern rule to generate prerequisites
+# ============================================================================ #
+pre_out_stem:= $(addprefix  $(out_dir)/,%.d)
+pre_inp_stem := $(addprefix $(inp_dir)/,%.c)
+$(pre_in): $(pre_out_stem): $(pre_inp_stem)
+	@set -e;  $(RM) -f $@ ; \
+	$(CC) -MM $(cflags) $< > $@.$$$$; \
+	sed 's,\($*\)\.o[ :]*,$(out_dir)/\1.o $@ : ,g' < $@.$$$$ > $@; \
+	$(RM) -f $@.$$$$
+
+# ============================================================================ #
 # Static pattern rule to create object file
 # ============================================================================ #
 quiet_cmd_cc = CC	$@
 color_cmd_cc = $(c_yellow)$(quiet_cmd_cc)
-cmd_cc = $(CC) $(cflags) -c -o $@ $^
+cmd_cc = $(CC) $(cflags) -c -o $@ $<
 out_stem := $(addprefix $(out_dir)/,%.o)
 inp_stem := $(addprefix $(inp_dir)/,%.c)
-$(obj_in): $(out_stem) : $(inp_stem)
+hdr_stem:= $(addprefix  $(out_dir)/,%.d)
+$(obj_in): $(out_stem) : $(inp_stem) | $(hdr_stem) 
 	$(call cmd,cc)
+
+-include $(pre_in)
 # ============================================================================ #
 # Static patter rule for sub built-in.o files
 # ============================================================================ #
