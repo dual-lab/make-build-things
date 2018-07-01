@@ -54,15 +54,24 @@ endif
 __internal_build : $(cc_build_objects) $(cc_build_libs)
 
 # ============================================================================ #
+# command to autogenerate prerequisities deps
+# ============================================================================ #
+define genpre = 
+set -e;  $(RM) -f $@ ; \
+$(CC) -MM $(cflags) $< > $@.$$$$; \
+sed 's,\($*\)\.o[ :]*,$(out_dir)/\1.o $@ : ,g' < $@.$$$$ > $@; \
+$(RM) -f $@.$$$$
+endef
+# ============================================================================ #
 # Static pattern rule to generate prerequisites
 # ============================================================================ #
+quiet_cmd_gen = GEN	$@
+color_cmd_gen = $(c_blue)$(quiet_cmd_gen)
+cmd_gen = $(genpre)
 pre_out_stem:= $(addprefix  $(out_dir)/,%.d)
 pre_inp_stem := $(addprefix $(inp_dir)/,%.c)
 $(pre_in): $(pre_out_stem): $(pre_inp_stem)
-	@set -e;  $(RM) -f $@ ; \
-	$(CC) -MM $(cflags) $< > $@.$$$$; \
-	sed 's,\($*\)\.o[ :]*,$(out_dir)/\1.o $@ : ,g' < $@.$$$$ > $@; \
-	$(RM) -f $@.$$$$
+	$(call cmd,gen)
 
 # ============================================================================ #
 # Static pattern rule to create object file
