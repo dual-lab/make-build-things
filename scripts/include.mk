@@ -119,3 +119,15 @@ cmd_rm = $(RM) -rf $@
 quiet_cmd_mkdir = MKDIR    $@
 color_cmd_mkdir = $(c_cyang)$(quiet_cmd_mkdir)
 cmd_mkdir = $(MKDIR) -p $@
+# ============================================================================ #
+# command to autogenerate prerequisities deps
+# ============================================================================ #
+define GENPRE = 
+set -e;  $(RM) -f $@ ; \
+$(CC) -MM $(cflags) $< > $@.$$$$; \
+sed 's,\($*\)\.o[ :]*,$(out_dir)/\1.o $@ : ,g' < $@.$$$$ > $@; \
+$(RM) -f $@.$$$$
+endef
+quiet_cmd_gen = GEN	$@
+color_cmd_gen = $(c_blue)$(quiet_cmd_gen)
+cmd_gen = $(GENPRE)

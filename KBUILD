@@ -18,5 +18,7 @@ CC := gcc
 LD := ld
 RM := rm
 MKDIR:= mkdir
+AR:= ar
+RANLIB:= ranlib
 
-export CC LD RM MKDIR
+export CC LD RM MKDIR AR RANLIB

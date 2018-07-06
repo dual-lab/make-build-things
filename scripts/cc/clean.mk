@@ -28,6 +28,7 @@ include $(root)/scripts/include.mk
 # directories contained in the upmost dir:
 #   src -> all source files
 #   dirs -> all directories
+#   libs -> all lib directories
 #   clean_files -> optional file to be removed during clean recipe
 #   clobber_files -> optional file to be removed during clobber recipe
 #   deps -> possible project dependencies
@@ -37,11 +38,18 @@ obj_test := $(patsubst %.c,%.o,$(src))
 obj_test_d := $(obj_test:.o=.d)
 obj_test_clean:= $(clean_files)
 obj_test_dirs := $(dirs)
+obj_test_dirs += $(filter-out $(dirs),$(libs))
 -include $(src_main_root)/$(marker)/Makefile
 obj_main := $(patsubst %.c,%.o,$(src))
 obj_main_d := $(obj_main:.o=.d)
 obj_main_clean:= $(clean_files)
 obj_main_dirs := $(dirs)
+obj_main_dirs += $(filter-out $(dirs),$(libs))
+# ============================================================================ #
+# Add automatic object created
+# ============================================================================ #
+obj_test += built-in.o
+obj_main += built-in.o
 # ============================================================================ #
 # Join all the objects necessary to the clean recipe
 # ============================================================================ #
