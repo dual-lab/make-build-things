@@ -1,8 +1,8 @@
 # ============================================================================ #
 #
 #  Author       : dmike
-#  Date         : 01 July 2018
-#  Description  : create a static lib
+#  Date         : 07 July 2018
+#  Description  :  build object files in a static lib project
 #
 # ============================================================================ #
 # Initialize local variables
@@ -11,30 +11,32 @@
 src :=
 dirs:=
 cflags:=
-extract_name:= $(patsubst lib%,%,$(notdir $(marker)))
-marker_nolib:= $(subst $(notdir $(marker)),$(extract_name),$(marker))
-inp_dir:= $(addprefix $(src_main_root)/,$(marker_nolib))
-out_dir:= $(addprefix $(target_main_root)/,$(marker_nolib))
-static_lib := $(addprefix $(target_main_root)/,$(marker).a)
+inp_dir:= $(addprefix $(src_main_root)/,$(marker))
+out_dir:= $(addprefix $(target_main_root)/,$(marker))
 built_in_suffix:= _built-in.o
+built_in:= $(addsuffix $(built_in_suffix),$(notdir $(marker)))
 
-PHONY:= __internal_static_lib_build
-__internal_static_lib_build:
+PHONY:= __internal_static_lib_obj_build
+__internal_static_lib_obj_build:
 
 # ============================================================================ #
 # Include, if present, local makefile in which are defined the files and the
 # directories contained in the upmost dir:
 #   src -> all source files
-#   cflags -> additional compiler flags
+#   dirs -> all directories
 # ============================================================================ #
 include $(inp_dir)/Makefile
 # ============================================================================ #
 # Include utilities function
 # ============================================================================ #
 include $(root)/scripts/include.mk
-
+# ============================================================================ #
+# Format and sort inclued objects
+# ============================================================================ #
 obj_in := $(addprefix $(out_dir)/,$(patsubst %.c,%.o,$(src)))
 pre_in := $(addprefix $(out_dir)/,$(patsubst %.c,%.d,$(src)))
+cc_build_objects:= $(addsuffix /$(built_in),$(out_dir))
+dirs_built_in:= 
 
 ifneq ($(strip $(cflags)),$(empty))
 cflags := $(patsubst -I%,-I$(addprefix $(src_main_root)/,%),$(cflags))
@@ -42,27 +44,24 @@ endif
 
 ifneq ($(strip $(dirs)),$(empty))
 dirs := $(sort $(patsubst %/,%,$(dirs)))
-built_in := $(addsuffix $(built_in_suffix), $(dirs))
+built_ins := $(addsuffix $(built_in_suffix), $(dirs))
 cflags += $(patsubst %,-I$(addprefix $(inp_dir)/,%),$(dirs))
-dirs_built_in += $(addprefix $(out_dir)/, $(addsuffix /$(built_in), $(dirs)))
+dirs_built_in += $(addprefix $(out_dir)/,$(addsuffix /$(built_ins),$(dirs)))
 dirs_doubled := $(join $(dirs)/,$(dirs))
 endif
 
-__internal_static_lib_build : $(static_lib)
-
-$(out_dir):
-	$(if $(call file-exists,$(out_dir)),,$(MKDIR) -p $@)
+__internal_static_lib_obj_build: $(cc_build_objects)
 
 # ============================================================================ #
-#  Recipe to generate prerequisites
+# Static pattern rule to generate prerequisites
 # ============================================================================ #
 pre_out_stem:= $(addprefix  $(out_dir)/,%.d)
 pre_inp_stem := $(addprefix $(inp_dir)/,%.c)
-$(pre_in): $(pre_out_stem): $(pre_inp_stem) |  $(out_dir) 
+$(pre_in): $(pre_out_stem): $(pre_inp_stem)
 	$(call cmd,gen)
 
 # ============================================================================ #
-#  Recipe to generate object files
+# Static pattern rule to create object file
 # ============================================================================ #
 quiet_cmd_cc = CC	$@
 color_cmd_cc = $(c_yellow)$(quiet_cmd_cc)
@@ -80,27 +79,23 @@ $(obj_in): $(out_stem) : $(inp_stem) | $(hdr_stem)
 # ============================================================================ #
 $(dirs_built_in): $(out_dir)/%$(built_in_suffix): %
 	@:
-
 # ============================================================================ #
-# Static lib rule 
+# LD into one object file
 # ============================================================================ #
-quiet_cmd_ar = AR	$@
-color_cmd_ar = $(c_yellow)$(quiet_cmd_ar)
-cmd_ar = $(AR)  cr $@ $^
-$(static_lib): $(obj_in) $(dirs_built_in)
-	$(call cmd,ar)
-	$(RANLIB) $@
-
+quiet_cmd_ld = LD	$@
+color_cmd_ld = $(c_blue)$(quiet_cmd_ld)
+cmd_ld = $(LD) -r -o $@ $^
+$(cc_build_objects): mkbuild = $(debug)$(MAKE) -f $(root)/scripts/cc/_build_static_lib_object.mk marker=$(addprefix $(marker)/,$(notdir $@))
+$(cc_build_objects) : $(obj_in) $(dirs_built_in)
+	$(call cmd,ld)
 # ============================================================================ #
 # Recursive subdirs walk
 # ============================================================================ #
 PHONY += $(dirs_doubled) 
-$(dirs_doubled): mkbuild = $(debug)$(MAKE) -f $(root)/scripts/cc/_build_static_lib_object.mk marker=$(addprefix $(marker_nolib)/,$(notdir $@))
 $(dirs_doubled): out_sub_dir = $(addprefix $(out_dir)/,$(notdir $@))
 
 $(dirs_doubled): 
 	$(if $(call file-exists,$(out_sub_dir)),,$(MKDIR) -p $(out_sub_dir))
 	$(mkbuild)
-
 
 .PHONY: $(PHONY)
