@@ -1,0 +1,7 @@
+#Ignore only for development stage
+src/
+target/
+.initialize
+#Mac OS ignore
+.DS_Store
+.vscode/

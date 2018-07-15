@@ -1,0 +1,14 @@
+KBUILD
+Makefile
+LICENSE
+CHANGELOG.md
+README.md
+scripts/include.mk
+scripts/clobber.mk
+scripts/clean.mk
+scripts/build.mk
+scripts/cc/clobber.mk
+scripts/cc/clean.mk
+scripts/cc/_build_static_lib.mk
+scripts/cc/_build_static_lib_object.mk
+scripts/cc/_build_object.mk

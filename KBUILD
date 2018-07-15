@@ -1,0 +1,24 @@
+#  ############################################################################# #
+#  Author       : dmike
+#  Date         : 2,October 2016
+#  Description  : Principal Make file
+#
+#  Default KBUILD file that does not define only the language variable.
+#  Setting it to 'cc'.
+#
+#  ############################################################################# #
+languages := cc
+mode := color_
+debug := @
+
+#  ############################################################################# #
+#  Command definition.
+#  ############################################################################# #
+CC := gcc
+LD := ld
+RM := rm
+MKDIR:= mkdir
+AR:= ar
+RANLIB:= ranlib
+
+export CC LD RM MKDIR AR RANLIB
