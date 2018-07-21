@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.1] - 2018-07-21
+
 ### Added
 
 - release script
@@ -14,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - base engine plugin discover provider
 - base make configuration
 
-### Changed
+### Fixed
+
+- fix missing build.mk file
 
 ## [Bugs]
