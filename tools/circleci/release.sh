@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -x -u -o pipefail
+set -e -x -u -o pipefail
 
 source "tools/circleci/decrypt_token.sh"
 source "tools/version.sh"
@@ -16,12 +16,10 @@ readonly AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 function main() {
     
     assert_master_branch
-    #exit_on_error $? "Release only from master branch"
 
     local tag="v${MAJOR}.${MINOR}.${PATCH}"
 
-    assert_no_tag_Version $tag
-    exit_on_error $? "Release with tag ${tag}, already exists"
+    assert_no_tag_version $tag
 
     local bundle_name="mkbts"
     local artifactid="${bundle_name}-${tag}" 
@@ -43,24 +41,22 @@ function assert_master_branch(){
     if [[ "$current_branch" == "$expected_branch" ]]; then
         return 0
     else
+        printf "++ Release only on branch master\n"
         return 1
     fi
 }
 
-function assert_no_tag_Version(){
+function assert_no_tag_version(){
     local v_tag=$1
     local tag_url="${REPO_ENDPOINT}/releases/tags/${v_tag}"
     local status=$(curl --silent -H "${AUTH_HEADER}" --head ${tag_url} | awk '/Status:/ {print $2}')
 
-    ((${status} == 404)) 
-    return $?
-}
-
-function exit_on_error(){
-    if [[ $1 -ne 0 ]]; then
-        printf "+ Error: $2\n"
-        exit 1
-    fi
+    if [[ ${status} -eq 404 ]]; then
+        return 0
+    else
+        printf "++ Release with tag ${tag}, already exists\n"
+        return 1
+    fi 
 }
 
 main
