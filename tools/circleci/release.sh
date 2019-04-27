@@ -7,6 +7,7 @@ source "tools/version.sh"
 
 readonly REPO_ENDPOINT="https://api.github.com/repos/dual-lab/make-build-thing"
 readonly AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
+readonly CONTENT_TYPE="Content-Type:Application/json"
 ##
 # name   : release.sh
 # author : dmike
@@ -19,11 +20,14 @@ function main() {
 
     local tag="v${MAJOR}.${MINOR}.${PATCH}"
 
-    assert_no_tag_version $tag
+    assert_no_tag_version ${tag}
 
     local bundle_name="mkbts"
-    local artifactid="${bundle_name}-${tag}" 
+    local artifactid="${bundle_name}-${tag}"
+
     generate_bundle ${artifactid}
+    ## TODO function that extract portion of changelog
+    generate_release ${tag} ${artifactid}
 }
 
 function generate_bundle(){
@@ -57,6 +61,13 @@ function assert_no_tag_version(){
         printf "++ Release with tag ${tag}, already exists\n"
         return 1
     fi 
+}
+
+function generate_release(){
+    local rel_url="${REPO_ENDPOINT}/release"
+    local rel_payload="{\"tag_name\":\"$1\", \"name\":\"$1\",\"draft\":true,\"body\":$3 }"
+    local awk_program='BEGIN{FS="\":"} /current_user_url/ {print substr($NF,1,length($NF)-1)}'
+    local upload_url=$(curl --silent -H "${AUTH_HEADER}" -H "${CONTENT_TYPE}" -d ${rel_payload} ${rel_url} | awk "${awk_program}")
 }
 
 main
