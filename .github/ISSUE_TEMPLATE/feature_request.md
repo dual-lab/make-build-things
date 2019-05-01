@@ -16,8 +16,8 @@ assignees: ''
 ## Relevant Package
 
 <!-- edit -->
-- [ ] pkg1
-- [ ] pkg2
+- [ ] main
+- [ ] cc-plugin
 - [x] pkgNew (&#x1F195;)
 
 ## Description
