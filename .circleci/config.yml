@@ -28,7 +28,7 @@ jobs:
   pack:
     executor: mkbt
     steps:
-      - attach_workspace
+      - attach-workspace
       - run: ./tools/circleci/release.sh
 
 workflows:
