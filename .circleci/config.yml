@@ -1,7 +1,7 @@
 version: 2.1
 description: Make configuration script
 
-var_1: &docker_image circleci/python:3.6.1
+var_1: &docker_image circleci/python:3.7.1-jessie
 
 executors:
   mkbt:

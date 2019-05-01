@@ -14,8 +14,8 @@ assignees: ''
 # &#x1F41D; bug report
 
 - **Affected package**
-  - [ ] pkg1
-  - [ ] pkg2
+  - [ ] main
+  - [ ] cc-plugin
 
 - **Expected behavior:**
 
