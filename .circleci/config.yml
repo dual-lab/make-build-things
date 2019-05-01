@@ -1,0 +1,44 @@
+version: 2.1
+description: Make configuration script
+
+var_1: &docker_image circleci/python:3.6.1
+
+executors:
+  mkbt:
+    docker:
+      - image: *docker_image
+    working_directory: ~/make-build-things
+
+commands:
+  attach-workspace:
+    description: "Attach current workspace"
+    steps:
+      - attach_workspace:
+          at: ~/
+
+jobs:
+  setup:
+    executor: mkbt
+    steps:
+      - checkout
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - ./make-build-things
+  pack:
+    executor: mkbt
+    steps:
+      - attach_workspace
+      - run ./tools/circleci/release.sh
+
+workflows:
+  version: 2
+  default_workflow:
+    jobs:
+      - setup
+      - pack:
+          requires:
+            - setup
+          filters:
+            branches:
+              only: master
