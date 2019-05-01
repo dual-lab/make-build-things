@@ -71,7 +71,7 @@ function generate_release(){
     local awk_extract_changelog="BEGIN{RS=\"---\n\n\";FS=\"\n\"} {if(index(\$1,\"## [$2]\") > 0){for(i=2; i<=NF; i++){ printf \"%s\\\\n\",\$i }}}"
     local changelog_extract=$(cat CHANGELOG.md | awk "${awk_extract_changelog}")
 
-    local rel_payload="{\"tag_name\":\"$1\", \"name\":\"$3\",\"draft\":true,\"body\": \""${changelog_extract}"\" }"
+    local rel_payload="{\"tag_name\":\"$1\", \"name\":\"$3\",\"draft\":false,\"body\": \""${changelog_extract}"\" }"
     local upload_url=$(curl --silent -H "${AUTH_HEADER}" -H "${JSON_TYPE}" -X POST -d "${rel_payload}" ${rel_url} | awk "${awk_extract_field}")
     
     if [[ -z ${upload_url} ]]; then
