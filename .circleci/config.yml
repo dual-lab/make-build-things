@@ -29,6 +29,9 @@ jobs:
     executor: mkbt
     steps:
       - attach-workspace
+      - run:
+          name: "Decrypt github token"
+          command: echo 'export GITHUB_TOKEN=$(openssl aes-256-cbc -d -in .circleci/github_token -k ${KEY} -iv ${IV_NONCE})' >> $BASH_ENV
       - run: ./tools/circleci/release.sh
 
 workflows:
