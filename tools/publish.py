@@ -32,8 +32,8 @@ def createRelease(url, tag, name, description):
         "tag_name": tag,
         "name": name,
         "body": description,
-        "draft": True,
-        "prerelease": True})
+        "draft": False,
+        "prerelease": False})
     request = makeARequest(end_point=url, headers={
                            'Content-Type': 'Application/json'}, method='POST', payload=bytes(data, 'ascii'))
     with urllib.request.urlopen(request) as response:
