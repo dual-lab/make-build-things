@@ -7,8 +7,8 @@
 #  Setting it to 'cc'.
 #
 #  ############################################################################# #
-languages := cc
-install_language := cc
+languages := docker
+install_language := docker
 mode := color_
 debug := @
 
