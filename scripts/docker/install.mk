@@ -21,7 +21,7 @@ PHONY += __init_install
 __init_install:
 	$(call cmd,init_install)
 
-quiet_cmd_end_install = $(call LOG,$(INFO),== Docker install $(marker))
+quiet_cmd_end_install = $(call LOG,$(INFO),== Docker install out $(marker))
 color_cmd_end_install = $(c_cyang)$(quiet_cmd_end_install)
 cmd_end_install =
 
