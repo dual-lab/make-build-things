@@ -21,5 +21,6 @@ RM := rm
 MKDIR:= mkdir
 AR:= ar
 RANLIB:= ranlib
+DOCKER:= docker
 
-export CC LD RM MKDIR AR RANLIB
+export CC LD RM MKDIR AR RANLIB DOCKER
