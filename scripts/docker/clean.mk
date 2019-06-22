@@ -17,7 +17,7 @@ include $(root)/scripts/include.mk
 # ============================================================================ #
 # Join all the objects necessary to the clean recipe
 # ============================================================================ #
-obj_clean := 
+obj_clean := $(addprefix $(target_main_root)/,Dockerfile)
 # ============================================================================ #
 # Define begin and end clean command
 # ============================================================================ #
@@ -31,7 +31,7 @@ cmd_end_clean =
 # Init target
 # ============================================================================ #
 PHONY += __docker_clean_init
-docker_clean: __docker_clean_init
+docker_clean: __docker_clean_init $(obj_clean)
 	$(call cmd,end_clean)
 
 __docker_clean_init:

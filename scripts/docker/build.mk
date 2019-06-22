@@ -29,7 +29,8 @@ cmd_end_build =
 PHONY += docker_build_target
 __build: docker_build_target
 
-docker_target := $(addprefix $(target_root)/,$(project_name))
+docker_target := $(addprefix $(target_main_root)/,Dockerfile)
+docker_build_target: makedockerfile = $(debug)echo "FROM scratch\nADD $(project_name).tar /\n$(docker_custom_cmd)\nCMD [\"/usr/bin/bash\"]" > $@
 docker_build_target: $(docker_target)
 	$(call cmd,end_build)
 
@@ -39,5 +40,6 @@ docker_build_target: $(docker_target)
 include $(src_main_root)/$(marker)/Makefile
 
 $(docker_target): $(docker_pre_build)
+	$(makedockerfile)
 
 .PHONY: $(PHONY)
