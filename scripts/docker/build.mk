@@ -37,6 +37,7 @@ docker_target := $(addprefix $(target_main_root)/,Dockerfile)
 # 'docker_build_target: override makedockerfile = do something different'
 # 
 # 
+# 
 # so to use this build process to create custom image based on other
 # ============================================================================ #
 docker_build_target: makedockerfile = $(debug)echo "FROM scratch\nADD $(project_name).tar /\n$(docker_custom_cmd)\nCMD [\"/usr/bin/bash\"]" > $@
