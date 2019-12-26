@@ -1,0 +1,28 @@
+{
+  "folders": [
+  {
+    "path": "."
+  }],
+  "build_systems": [
+  {
+    "name": "MKBT",
+    "cmd": ["make"],
+    "working_dir": "${folder:${project_path:${file_path}}}",
+    "selector": ["source.makefile"],
+    "keyfiles": ["Makefile"],
+    "file_regex": "^(..[^:\n]*):([0-9]+):?([0-9]+)?:? (.*)$",
+    "variants": [
+    {
+      "name": "Clean",
+      "cmd": ["make", "clean"]
+    },
+    {
+      "name": "Clobber",
+      "cmd": ["make", "clobber"]
+    },
+    {
+      "name": "Install",
+      "cmd": ["make", "install"]
+    }]
+  }]
+}
