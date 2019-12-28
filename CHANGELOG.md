@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.1.0]
+
+### Added
+
+* pacakges project plugin. Now mkbt can be used to manage multi-project
+* docker project plugin. First release with clean, clobber, build, install rules. 
+* install generic rule.
+
 ## [1.0.3]
 
 ### Fixed
