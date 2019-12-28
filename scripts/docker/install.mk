@@ -5,6 +5,7 @@
 #  Description  : Docker plugin install rule
 #
 # ############################################################################ #
+tag:= latest
 PHONY := _install
 _install: __init_install
 
@@ -32,7 +33,7 @@ include $(root)/scripts/$(marker)/build.mk
 
 quiet_cmd_docker = $(call LOG,$(INFO),== Docker install $(marker))
 color_cmd_docker = $(c_green)$(quiet_cmd_docker)
-cmd_docker = $(DOCKER) build --tag $(project_name) $(target_main_root)
+cmd_docker = $(DOCKER) build --tag $(project_name):$(tag) $(target_main_root)
 
 install_target: $(docker_target)
 	$(call cmd,docker)
