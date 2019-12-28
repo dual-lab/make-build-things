@@ -82,6 +82,11 @@ file-exists = $(wildcard $(1))
 # ============================================================================ #
 makebuild = $(debug)$(MAKE) -f $(root)/scripts/build.mk obj=$(1) type=$(1)
 # ============================================================================ #
+# Function that call the relative specific language install plugin
+# Usage : $(call makeinstall src,type) 
+# ============================================================================ #
+makeinstall = $(debug)$(MAKE) -f $(root)/scripts/install.mk obj=$(1) type=$(1)
+# ============================================================================ #
 #
 # Function tha call the  relative leanguage specifications'  clean plugin
 # Usage : $(call makeclean src,type)

@@ -92,6 +92,7 @@ debug ?= @
 mode ?= quiet_
 export debug mode
 # ============================================================================ #
+install_language ?= $(empty)
 languages ?= $(empty)
 ifeq ($(languages),$(empty))
  $(error $(call LOG,$(ERROR),$(E001_NO_LANGUAGE)))
@@ -158,7 +159,15 @@ build : $(language_main)
 
 $(language_main):
 	$(call makebuild,$@)
+# ============================================================================ #
+# Define the install target, should depend from the build target
+# ============================================================================ #
+ifneq ($(install_language),$(empty))
+PHONY += install
+install : build
+	$(call makeinstall,$(install_language))
 
+endif
 # ============================================================================ #
 #
 # Define the clean recipe in order to clean

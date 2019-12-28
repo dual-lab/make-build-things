@@ -13,3 +13,12 @@ scripts/cc/clean.mk
 scripts/cc/_build_static_lib.mk
 scripts/cc/_build_static_lib_object.mk
 scripts/cc/_build_object.mk
+scripts/docker/build.mk
+scripts/docker/clobber.mk
+scripts/docker/clean.mk
+scripts/docker/install.mk
+scripts/pacakges/build.mk
+scripts/pacakges/clobber.mk
+scripts/pacakges/clean.mk
+scripts/pacakges/install.mk
+scripts/pacakges/_pacakges_walk.mk
