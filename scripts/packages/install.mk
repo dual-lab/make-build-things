@@ -27,7 +27,6 @@ __install: packages_install
 
 include $(root)/scripts/packages/_packages_walk.mk
 
-cmd_action_pack = $(MAKE) -C $(addprefix $(inp_dir)/,$@) -f $(addprefix $(inp_dir)/,$@/Makefile) install
 
 packages_install: packages_walking
 	$(call cmd,end_install)

@@ -106,7 +106,7 @@ target_main_root ?=$(target_root)/$(notdir $(src_main_root))
 target_test_root ?= $(target_root)/$(notdir $(src_test_root))
 VPATH = $(src_root)
 export project_name src_root src_main_root src_test_root \
- target_root target_main_root target_test_root \
+ target_root target_main_root target_test_root MAKECMDGOALS\
  VPATH
 # ============================================================================ #
 #
