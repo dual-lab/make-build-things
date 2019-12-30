@@ -29,7 +29,7 @@ packages_walking: $(deps)
 
 quiet_cmd_action_pack = $(call LOG,$(INFO),== Walk package $@)
 color_cmd_action_pack = $(c_yellow)$(quiet_cmd_action_pack)
-cmd_action_pack = echo "override me"
+cmd_action_pack = $(MAKE) -C $(addprefix $(inp_dir)/,$@) -f $(addprefix $(inp_dir)/,$@/Makefile) $(MAKECMDGOALS)
 
 PHONY += $(deps)
 $(deps):
