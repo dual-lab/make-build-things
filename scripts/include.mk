@@ -80,32 +80,32 @@ file-exists = $(wildcard $(1))
 # Usage : $(call makebuild src,type)
 #
 # ============================================================================ #
-makebuild = $(debug)$(MAKE) -f $(root)/scripts/build.mk obj=$(1) type=$(1)
+makebuild = $(debug)$(MAKE) -f $(root)/scripts/build.mk obj=$(1) type=$(2)
 # ============================================================================ #
 # Function that call the relative specific language install plugin
 # Usage : $(call makeinstall src,type) 
 # ============================================================================ #
-makeinstall = $(debug)$(MAKE) -f $(root)/scripts/install.mk obj=$(1) type=$(1)
+makeinstall = $(debug)$(MAKE) -f $(root)/scripts/install.mk obj=$(1) type=$(2)
 # ============================================================================ #
 #
 # Function tha call the  relative leanguage specifications'  clean plugin
 # Usage : $(call makeclean src,type)
 #
 # ============================================================================ #
-makeclean = $(debug)$(MAKE) -f $(root)/scripts/clean.mk obj=$(1) type=$(1)
+makeclean = $(debug)$(MAKE) -f $(root)/scripts/clean.mk obj=$(1) type=$(2)
 # ============================================================================ #
 #
 # Function that call the  relative leanguage specifications'  clobber  plugin
 # Usage : $(call makeclobber src,type)
 #
 # ============================================================================ #
-makeclobber = $(debug)$(MAKE) -f $(root)/scripts/clobber.mk obj=$(1) type=$(1)
+makeclobber = $(debug)$(MAKE) -f $(root)/scripts/clobber.mk obj=$(1) type=$(2)
 # ============================================================================ #
 #
 # Function that fill the sub makefile with project dependencies
 #
 # ============================================================================ #
-makedep = $(debug)echo 'deps := $(1) \#Automatic Generated' >> $(2)/Makefile
+makedep = $(debug)echo '\#Automatic Generated' >> $(2)/Makefile
 # ============================================================================ #
 #
 # Remove command.

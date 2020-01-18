@@ -14,6 +14,7 @@
 src :=
 dirs:=
 clean_files:=
+out_dir:= $(addsuffix $(marker:$(src_root)%=%),$(target_root))
 # ============================================================================ #
 # Default target
 # ============================================================================ #
@@ -33,13 +34,7 @@ include $(root)/scripts/include.mk
 #   clobber_files -> optional file to be removed during clobber recipe
 #   deps -> possible project dependencies
 # ============================================================================ #
--include $(src_test_root)/$(marker)/Makefile
-obj_test := $(patsubst %.c,%.o,$(src))
-obj_test_d := $(obj_test:.o=.d)
-obj_test_clean:= $(clean_files)
-obj_test_dirs := $(dirs)
-obj_test_dirs += $(filter-out $(dirs),$(libs))
--include $(src_main_root)/$(marker)/Makefile
+-include $(marker)/Makefile
 obj_main := $(patsubst %.c,%.o,$(src))
 obj_main_d := $(obj_main:.o=.d)
 obj_main_clean:= $(clean_files)
@@ -53,14 +48,10 @@ obj_main += built-in.o
 # ============================================================================ #
 # Join all the objects necessary to the clean recipe
 # ============================================================================ #
-obj_src   := $(wildcard $(sort $(addprefix $(target_test_root)/$(marker)/,$(obj_test))))  \
-  $(wildcard $(sort $(addprefix  $(target_test_root)/$(marker)/,$(obj_test_d)))) \
-  $(wildcard $(sort $(addprefix  $(target_main_root)/$(marker)/,$(obj_main)))) \
-  $(wildcard $(sort $(addprefix  $(target_main_root)/$(marker)/,$(obj_main_d))))
-obj_dir   := $(sort $(addprefix $(marker)/,$(obj_test_dirs)))  \
-  $(sort $(addprefix $(marker)/,$(obj_main_dirs)))
-obj_clean := $(wildcard $(sort $(addprefix $(src_test_root)/$(marker)/,$(obj_test_clean))))  \
-  $(wildcard $(sort $(addprefix $(src_main_root)/$(marker)/,$(obj_main_clean))))
+obj_src   := $(wildcard $(sort $(addprefix  $(out_dir)/,$(obj_main)))) \
+  $(wildcard $(sort $(addprefix  $(out_dir)/,$(obj_main_d))))
+obj_dir   := $(sort $(addprefix $(marker)/,$(obj_main_dirs)))
+obj_clean := $(wildcard $(sort $(addprefix $(marker)/,$(obj_main_clean))))
 # ============================================================================ #
 # Define begin and end clean command
 # ============================================================================ #
