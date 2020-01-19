@@ -29,9 +29,9 @@ cmd_end_build =
 PHONY += docker_build_target
 __build: docker_build_target
 
-docker_target := $(addprefix $(target_main_root)/,Dockerfile)
+docker_target := $(addprefix $(target_root)/,Dockerfile)
 # ============================================================================ #
-# makedockerfile can be override inside the src_main_root/Makefile
+# makedockerfile can be override inside the src_root/Makefile
 # 
 # 
 # 'docker_build_target: override makedockerfile = do something different'
@@ -47,7 +47,7 @@ docker_build_target: $(docker_target)
 # ============================================================================ #
 # Include file containing the docker_pre_build rule
 # ============================================================================ #
-include $(src_main_root)/$(marker)/Makefile
+include $(marker)/Makefile
 
 $(docker_target): $(docker_pre_build)
 	$(makedockerfile)
