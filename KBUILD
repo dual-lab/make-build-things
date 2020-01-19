@@ -12,7 +12,6 @@ install_language := packages
 mode := color_
 debug := @
 
-lib_root := $(empty)
 dep_root := $(empty)
 
 #  ############################################################################# #

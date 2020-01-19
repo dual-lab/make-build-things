@@ -66,7 +66,6 @@ include $(root)/scripts/include.mk
 # file:
 #	languages:
 #   src_root:
-#	lib_root:
 #	dep_root:
 #	target_root
 # ============================================================================ #
@@ -96,12 +95,11 @@ ifeq ($(languages),$(empty))
 endif
 project_name ?= $(notdir $(patsubst %/,%,$(root)))
 src_root ?= $(root)/src
-lib_root ?= $(root)/lib
 dep_root ?= $(root)/dep
 target_root ?= $(root)/build
 
 VPATH = $(src_root)
-export project_name src_root lib_root dep_root\
+export project_name src_root dep_root\
  target_root MAKECMDGOALS\
  VPATH
 # ============================================================================ #
@@ -111,7 +109,6 @@ export project_name src_root lib_root dep_root\
 # ============================================================================ #
 language_main := $(filter-out %/,$(languages))
 dirs := $(src_root) \
-  $(lib_root) \
   $(target_root) \
   $(dep_root)
 
