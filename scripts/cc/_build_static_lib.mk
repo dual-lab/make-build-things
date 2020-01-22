@@ -13,9 +13,9 @@ dirs:=
 cflags:=
 extract_name:= $(patsubst lib%,%,$(notdir $(marker)))
 marker_nolib:= $(subst $(notdir $(marker)),$(extract_name),$(marker))
-inp_dir:= $(addprefix $(src_main_root)/,$(marker_nolib))
-out_dir:= $(addprefix $(target_main_root)/,$(marker_nolib))
-static_lib := $(addprefix $(target_main_root)/,$(marker).a)
+inp_dir:= $(marker_nolib)
+out_dir:= $(addsuffix $(marker_nolib:$(src_root)%=%), $(target_root))
+static_lib := $(addprefix $(target_root)/,$(marker:$(src_root)%=%).a)
 built_in_suffix:= _built-in.o
 
 PHONY:= __internal_static_lib_build
@@ -37,7 +37,7 @@ obj_in := $(addprefix $(out_dir)/,$(patsubst %.c,%.o,$(src)))
 pre_in := $(addprefix $(out_dir)/,$(patsubst %.c,%.d,$(src)))
 
 ifneq ($(strip $(cflags)),$(empty))
-cflags := $(patsubst -I%,-I$(addprefix $(src_main_root)/,%),$(cflags))
+cflags := $(patsubst -I%,-I$(addprefix $(src_root)/,%),$(cflags))
 endif
 
 ifneq ($(strip $(dirs)),$(empty))
