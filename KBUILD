@@ -24,5 +24,6 @@ MKDIR:= mkdir
 AR:= ar
 RANLIB:= ranlib
 DOCKER:= docker
+GIT:= git
 
-export CC LD RM MKDIR AR RANLIB DOCKER
+export CC LD RM MKDIR AR RANLIB DOCKER GIT

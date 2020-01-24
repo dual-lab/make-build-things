@@ -224,5 +224,18 @@ $(language_clobber):
 	$(call makeclobber,$(src_root),$(patsubst clobber_%,%,$@))
 $(clobber_files):
 	$(call cmd,rm)
+# ============================================================================ #
+#
+# Print last project git version
+#
+# ============================================================================ #
+PHONY += version
+
+version : quiet_cmd_version = $(call LOG,$(INFO),Last version)
+version : color_cmd_version = $(c_magenta)$(quiet_cmd_version)
+version : cmd_version = $(GIT) describe --tags --always --match=v*
+
+version:
+	$(call cmd,version)
 
 .PHONY : $(PHONY)
