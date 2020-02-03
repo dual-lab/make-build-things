@@ -7,11 +7,12 @@
 #  Setting it to 'cc'.
 #
 #  ############################################################################# #
-languages := cc
-install_language := packages
+languages := golang
+install_language := golang
 mode := color_
 debug := @
 
+src_root := test_go
 dep_root := $(empty)
 
 #  ############################################################################# #
@@ -25,5 +26,6 @@ AR:= ar
 RANLIB:= ranlib
 DOCKER:= docker
 GIT:= git
+GO:= go
 
-export CC LD RM MKDIR AR RANLIB DOCKER GIT
+export CC LD RM MKDIR AR RANLIB DOCKER GIT GO

@@ -7,3 +7,8 @@ lib/
 #Mac OS ignore
 .DS_Store
 .vscode/
+#sublime
+*.sublime-workspace
+#go file
+go.mod
+test_go/
