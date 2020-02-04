@@ -31,10 +31,18 @@ go_build_target: $(go_target)
 
 include $(root)/scripts/golang/_build_object.mk
 
+mod_file := $(root)/go.mod
+
 quiet_cmd_out = OUT	$@
 color_cmd_out = $(c_green)$(quiet_cmd_out)
 cmd_out = $(GO) build -o $@ $<
-$(go_target): $(main) $(go_build_objects) $(dirs_built_in) #all obj files ,libs and project deps
+$(go_target): $(main) $(mod_file) $(go_build_objects) $(dirs_built_in)
 	$(call cmd,out)
+
+quiet_cmd_gomod = GO MOD	$(mod_name)
+color_cmd_gomod = $(c_magenta)$(quiet_cmd_gomod)
+cmd_gomod = $(GO) mod init $(mod_name)
+$(mod_file):
+	$(call cmd,gomod)
 
 .PHONY: $(PHONY)
