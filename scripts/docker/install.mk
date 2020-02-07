@@ -29,13 +29,11 @@ cmd_end_install =
 PHONY += install_target
 _install: install_target
 
-include $(root)/scripts/$(marker)/build.mk
-
 quiet_cmd_docker = $(call LOG,$(INFO),== Docker install $(marker))
 color_cmd_docker = $(c_green)$(quiet_cmd_docker)
-cmd_docker = $(DOCKER) build --tag $(project_name):$(tag) $(target_main_root)
+cmd_docker = $(DOCKER) build --tag $(project_name):$(tag) $(target_root)
 
-install_target: $(docker_target)
+install_target:
 	$(call cmd,docker)
 	$(call cmd,end_install)
 

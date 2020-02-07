@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.0]
+
+### Added
+
+* add version recipe to show the last version
+* add initial implementation of golang plugin
+
+### Refactor
+
+* change directory structure and adapt all plugin
+
 ## [1.1.2]
 
 ### Fixed

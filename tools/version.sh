@@ -1,3 +1,3 @@
-readonly MAJOR=1
-readonly MINOR=1
-readonly PATCH=2
+readonly MAJOR=2
+readonly MINOR=0
+readonly PATCH=0

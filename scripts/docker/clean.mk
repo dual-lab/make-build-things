@@ -17,7 +17,7 @@ include $(root)/scripts/include.mk
 # ============================================================================ #
 # Join all the objects necessary to the clean recipe
 # ============================================================================ #
-obj_clean := $(addprefix $(target_main_root)/,Dockerfile)
+obj_clean := $(addprefix $(target_root)/,Dockerfile)
 # ============================================================================ #
 # Define begin and end clean command
 # ============================================================================ #

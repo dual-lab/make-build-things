@@ -66,12 +66,8 @@ include $(root)/scripts/include.mk
 # file:
 #	languages:
 #   src_root:
-#	src_main_root:
-#	src_test_root:
+#	dep_root:
 #	target_root
-#	target_main_root:
-#	target_test_root:
-#	target_test:
 # ============================================================================ #
 $(root)/KBUILD: ;
 include $(root)/KBUILD
@@ -99,39 +95,29 @@ ifeq ($(languages),$(empty))
 endif
 project_name ?= $(notdir $(patsubst %/,%,$(root)))
 src_root ?= $(root)/src
-src_main_root ?= $(src_root)/main
-src_test_root ?= $(src_root)/test
-target_root ?= $(root)/target
-target_main_root ?=$(target_root)/$(notdir $(src_main_root))
-target_test_root ?= $(target_root)/$(notdir $(src_test_root))
+dep_root ?= $(root)/dep
+target_root ?= $(root)/build
+
 VPATH = $(src_root)
-export project_name src_root src_main_root src_test_root \
- target_root target_main_root target_test_root MAKECMDGOALS\
+export project_name src_root dep_root\
+ target_root MAKECMDGOALS\
  VPATH
 # ============================================================================ #
 #
-# Extract the main languages from the ones defined in KBUILD
-# and the possible sub-languages defined like subdirs:
-# cpp/cc/
+# Extract the main languages from the ones defined in KBUILD.
 #
 # ============================================================================ #
 language_main := $(filter-out %/,$(languages))
-language_sub  := $(filter %/,$(languages))
-language_dirs := $(addprefix $(src_main_root)/,$(language_main)) \
-  $(addprefix $(src_test_root)/,$(language_main)) \
-  $(addprefix $(target_main_root)/,$(language_main)) \
-  $(addprefix $(target_test_root)/,$(language_main))
-language_sub_dirs := $(addprefix $(src_main_root)/,$(language_sub)) \
-  $(addprefix $(src_test_root)/,$(language_sub)) \
-  $(addprefix $(target_main_root)/,$(language_sub)) \
-  $(addprefix $(target_test_root)/,$(language_sub))
-$(language_dirs):
+dirs := $(src_root) \
+  $(target_root) \
+  $(dep_root)
+
+ $(dirs):
 	$(call cmd,mkdir)
-	$(call makedep,$(patsubst $(notdir $@)/%/,%,$(language_sub)),$@)
-$(language_sub_dirs):
-	$(call cmd,mkdir)
-PHONY += language_all_dirs
-language_all_dirs : $(language_dirs) $(language_sub_dirs)
+	$(call makedep,$(empty),$@)
+
+PHONY += all_dirs
+all_dirs : $(filter-out $(empty), $(dirs))
 # ============================================================================ #
 #
 # Define the init recipe in order to initialize the
@@ -146,7 +132,7 @@ cmd_init = touch $(init_flag)
 $(init_flag) :
 	$(call cmd,init)
 PHONY += init
-init: | $(init_flag) language_all_dirs;
+init: | $(init_flag) all_dirs;
 # ============================================================================ #
 #
 # Define the build target in order to compile
@@ -158,7 +144,7 @@ all: init build
 build : $(language_main)
 
 $(language_main):
-	$(call makebuild,$@)
+	$(call makebuild,$(src_root),$@)
 # ============================================================================ #
 # Define the install target, should depend from the build target
 # ============================================================================ #
@@ -205,7 +191,7 @@ clean : $(language_clean) $(clean_files)
 #
 # ============================================================================ #
 $(language_clean):
-	$(call makeclean,$(patsubst clean_%,%,$@))
+	$(call makeclean,$(src_root),$(patsubst clean_%,%,$@))
 $(clean_files):
 	$(call cmd,rm)
 
@@ -235,8 +221,21 @@ clobber : $(language_clobber) $(clobber_files)
 #
 # ============================================================================ #
 $(language_clobber):
-	$(call makeclobber,$(patsubst clobber_%,%,$@))
+	$(call makeclobber,$(src_root),$(patsubst clobber_%,%,$@))
 $(clobber_files):
 	$(call cmd,rm)
+# ============================================================================ #
+#
+# Print last project git version
+#
+# ============================================================================ #
+PHONY += version
+
+version : quiet_cmd_version = $(call LOG,$(INFO),Last version)
+version : color_cmd_version = $(c_magenta)$(quiet_cmd_version)
+version : cmd_version = $(GIT) describe --tags --always --match=v*
+
+version:
+	$(call cmd,version)
 
 .PHONY : $(PHONY)

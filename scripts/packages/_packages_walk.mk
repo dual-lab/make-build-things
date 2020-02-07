@@ -7,7 +7,7 @@
 # ============================================================================ #
 
 deps :=
-inp_dir:= $(addprefix $(src_main_root)/,$(marker))
+inp_dir:= $(marker)
 
 PHONY += __internal_walking
 __internal_walking: packages_walking

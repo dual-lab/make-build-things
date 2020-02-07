@@ -11,8 +11,8 @@
 src :=
 dirs:=
 cflags:=
-inp_dir:= $(addprefix $(src_main_root)/,$(marker))
-out_dir:= $(addprefix $(target_main_root)/,$(marker))
+inp_dir:= $(marker)
+out_dir:= $(addsuffix $(marker:$(src_root)%=%),$(target_root))
 built_in_suffix:= _built-in.o
 built_in:= $(addsuffix $(built_in_suffix),$(notdir $(marker)))
 
@@ -39,7 +39,7 @@ cc_build_objects:= $(addsuffix /$(built_in),$(out_dir))
 dirs_built_in:= 
 
 ifneq ($(strip $(cflags)),$(empty))
-cflags := $(patsubst -I%,-I$(addprefix $(src_main_root)/,%),$(cflags))
+cflags := $(patsubst -I%,-I$(addprefix $(src_root)/,%),$(cflags))
 endif
 
 ifneq ($(strip $(dirs)),$(empty))

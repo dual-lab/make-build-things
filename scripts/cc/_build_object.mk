@@ -13,8 +13,8 @@ src :=
 dirs:=
 libs:=
 cflags:=
-inp_dir:= $(addprefix $(src_main_root)/,$(marker))
-out_dir:= $(addprefix $(target_main_root)/,$(marker))
+inp_dir:= $(marker)
+out_dir:= $(addsuffix $(marker:$(src_root)%=%),$(target_root))
 built_in:= built-in.o
 
 PHONY:= __internal_build
@@ -42,7 +42,7 @@ cc_build_libs:=
 dirs_built_in:= 
 
 ifneq ($(strip $(cflags)),$(empty))
-cflags := $(patsubst -I%,-I$(addprefix $(src_main_root)/,%),$(cflags))
+cflags := $(patsubst -I%,-I$(addprefix $(src_root)/,%),$(cflags))
 endif
 
 ifneq ($(strip $(dirs)),$(empty))
@@ -101,6 +101,7 @@ $(cc_build_objects) : $(obj_in) $(dirs_built_in)
 # Static Lib build process
 # ============================================================================ #
 #TODO
+#FIXME: adapt to the new structure
 $(cc_build_libs): mkbuild = $(debug)$(MAKE) -f $(root)/scripts/cc/_build_static_lib.mk marker=$(addprefix $(marker)/,$(patsubst %.a,%,$(notdir $@)))
 $(cc_build_libs):
 	$(mkbuild)

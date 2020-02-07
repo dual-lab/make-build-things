@@ -1,7 +1,14 @@
 #Ignore only for development stage
 src/
-target/
+build/
+dep/
+lib/
 .initialize
 #Mac OS ignore
 .DS_Store
 .vscode/
+#sublime
+*.sublime-workspace
+#go file
+go.mod
+test_go/
