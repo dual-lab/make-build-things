@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 * add version recipe to show the last version
+* add initial implementation of golang plugin
 
 ### Refactor
 
