@@ -7,6 +7,8 @@
 #
 # ============================================================================ #
 
+ldflags :=
+
 PHONY:= __build
 __build: __init_build
 
@@ -31,11 +33,15 @@ go_build_target: $(go_target)
 
 include $(root)/scripts/golang/_build_object.mk
 
+ifneq ($(strip $(ldflags)),$(empty))
+ldflags := -ldflags=$(ldflags)
+endif
+
 mod_file := $(root)/go.mod
 
 quiet_cmd_out = OUT	$@
 color_cmd_out = $(c_green)$(quiet_cmd_out)
-cmd_out = $(GO) build -o $@ $<
+cmd_out = $(GO) build $(ldflags) -o $@ $<
 $(go_target): $(main) $(mod_file) $(go_build_objects) $(dirs_built_in)
 	$(call cmd,out)
 
