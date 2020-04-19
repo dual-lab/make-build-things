@@ -12,3 +12,5 @@ lib/
 #go file
 go.mod
 test_go/
+#compile db
+compile_commands.json
