@@ -8,17 +8,23 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +100 Makefile
-badd +0 term://.//3440:/usr/bin/zsh
-badd +6 ~/.config/nvim/init.vim
-badd +1 .git/index
-badd +0 mktb.todo.md
+badd +1 term://.//41497:/usr/bin/zsh
+badd +55 ~/.config/nvim/init.vim
+badd +8 mktb.todo.md
 badd +1 KBUILD
-badd +0 ~/Ideas/cli/make-build-things/Session.vim
+badd +1 ~/Ideas/cli/make-build-things/Session.vim
+badd +35 scripts/k-driver/build.mk
+badd +28 scripts/cc/build.mk
+badd +17 scripts/cc/_build_object.mk
+badd +115 scripts/include.mk
+badd +1 src/hello.c
+badd +0 src/Makefile
+badd +0 ~/Ideas/cli/make-build-things/.git/index
 argglobal
 %argdel
 $argadd Makefile
 set stal=2
-edit .git/index
+edit ~/Ideas/cli/make-build-things/.git/index
 set splitbelow splitright
 wincmd _ | wincmd |
 split
@@ -31,27 +37,10 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 24 + 25) / 51)
-exe '2resize ' . ((&lines * 23 + 25) / 51)
+exe '1resize ' . ((&lines * 21 + 22) / 45)
+exe '2resize ' . ((&lines * 20 + 22) / 45)
 argglobal
-setlocal fdm=syntax
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=1
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 5 - ((4 * winheight(0) + 12) / 24)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-5
-normal! 0
-wincmd w
-argglobal
-if bufexists("~/Ideas/cli/make-build-things/Session.vim") | buffer ~/Ideas/cli/make-build-things/Session.vim | else | edit ~/Ideas/cli/make-build-things/Session.vim | endif
-setlocal fdm=marker
+setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
 setlocal fdi=#
@@ -59,16 +48,34 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 11) / 23)
+let s:l = 1 - ((0 * winheight(0) + 10) / 21)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
 normal! 0
 wincmd w
-exe '1resize ' . ((&lines * 24 + 25) / 51)
-exe '2resize ' . ((&lines * 23 + 25) / 51)
-tabedit mktb.todo.md
+argglobal
+if bufexists("scripts/k-driver/build.mk") | buffer scripts/k-driver/build.mk | else | edit scripts/k-driver/build.mk | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 37 - ((17 * winheight(0) + 10) / 20)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+37
+normal! 045|
+wincmd w
+exe '1resize ' . ((&lines * 21 + 22) / 45)
+exe '2resize ' . ((&lines * 20 + 22) / 45)
+tabedit src/Makefile
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -87,12 +94,37 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 8 - ((7 * winheight(0) + 24) / 48)
+let s:l = 1 - ((0 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-8
-normal! 012|
+1
+normal! 016|
+tabedit KBUILD
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 21 - ((18 * winheight(0) + 21) / 42)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+21
+normal! 014|
 tabnew
 set splitbelow splitright
 set nosplitbelow
@@ -103,7 +135,7 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-if bufexists("term://.//3440:/usr/bin/zsh") | buffer term://.//3440:/usr/bin/zsh | else | edit term://.//3440:/usr/bin/zsh | endif
+if bufexists("term://.//41497:/usr/bin/zsh") | buffer term://.//41497:/usr/bin/zsh | else | edit term://.//41497:/usr/bin/zsh | endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -112,12 +144,12 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 7 - ((6 * winheight(0) + 24) / 48)
+let s:l = 161 - ((41 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-7
-normal! 02|
+161
+normal! 08|
 tabnext 1
 set stal=1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

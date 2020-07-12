@@ -108,6 +108,12 @@ makeclobber = $(debug)$(MAKE) -f $(root)/scripts/clobber.mk obj=$(1) type=$(2)
 makedep = $(debug)echo '\#Automatic Generated' >> $(2)/Makefile
 # ============================================================================ #
 #
+# Function that call the kernel make file
+#
+# ============================================================================ #
+makekernel = $(debug)$(MAKE) -C $(1) M=$(2) $(3)
+# ============================================================================ #
+#
 # Remove command.
 # Usage : $(call cmd,rm)
 #

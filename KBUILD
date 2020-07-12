@@ -18,8 +18,8 @@ dep_root := $(empty)
 # ############################################################################## #
 # Plugin variables definition
 # ############################################################################## #
-KERNELDIR :=
-mod_name
+KERNELDIR := /lib/modules/$(shell uname -r)/build
+mod_name :=
 
 export KERNELDIR mod_name
 
