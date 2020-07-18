@@ -151,7 +151,7 @@ $(language_main):
 ifneq ($(install_language),$(empty))
 PHONY += install
 install : build
-	$(call makeinstall,$(install_language))
+	$(call makeinstall,$(src_root),$(install_language))
 
 endif
 # ============================================================================ #

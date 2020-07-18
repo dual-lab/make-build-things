@@ -17,7 +17,7 @@ __build: __init_build
 # ============================================================================ #
 include $(root)/scripts/include.mk
 
-quiet_cmd_init_build = $(call LOG,$(INFO),== Kernel Driver in $(marker))
+quiet_cmd_init_build = $(call LOG,$(INFO),== Kernel Driver build in $(marker))
 color_cmd_init_build = $(c_cyang)$(quiet_cmd_init_build)
 cmd_init_build =
 
