@@ -7,8 +7,8 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +100 Makefile
-badd +1 term://.//6717:/usr/bin/zsh
+badd +154 Makefile
+badd +1 term://.//36444:/usr/bin/zsh
 badd +55 ~/.config/nvim/init.vim
 badd +8 mktb.todo.md
 badd +1 KBUILD
@@ -22,66 +22,16 @@ badd +1 src/Makefile
 badd +45 scripts/k-driver/clean.mk
 badd +1 scripts/cc/clean.mk
 badd +5 .gitignore
-badd +0 scripts/cc/clobber.mk
+badd +1 scripts/cc/clobber.mk
 badd +23 scripts/k-driver/clobber.mk
-badd +1 .git/index
 badd +40 scripts/k-driver/install.mk
 badd +20 scripts/install.mk
+badd +17 CHANGELOG.md
 argglobal
 %argdel
 $argadd Makefile
 set stal=2
-edit scripts/k-driver/install.mk
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-set nosplitbelow
-set nosplitright
-wincmd t
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-wincmd =
-argglobal
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 40 - ((36 * winheight(0) + 22) / 44)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-40
-normal! 03|
-wincmd w
-argglobal
-if bufexists("Makefile") | buffer Makefile | else | edit Makefile | endif
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 154 - ((32 * winheight(0) + 22) / 44)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-154
-normal! 010|
-wincmd w
-wincmd =
-tabedit src/Makefile
+edit src/Makefile
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -106,12 +56,8 @@ exe s:l
 normal! zt
 1
 normal! 016|
-tabedit .git/index
+tabedit mktb.todo.md
 set splitbelow splitright
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
@@ -119,25 +65,7 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-wincmd =
 argglobal
-setlocal fdm=syntax
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=1
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 12 - ((11 * winheight(0) + 11) / 22)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-12
-normal! 0
-wincmd w
-argglobal
-if bufexists("mktb.todo.md") | buffer mktb.todo.md | else | edit mktb.todo.md | endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -147,14 +75,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 7 - ((3 * winheight(0) + 10) / 21)
+let s:l = 1 - ((0 * winheight(0) + 22) / 44)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-7
-normal! 060|
-wincmd w
-wincmd =
+1
+normal! 0
 tabedit KBUILD
 set splitbelow splitright
 set nosplitbelow
@@ -190,7 +116,7 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-if bufexists("term://.//6717:/usr/bin/zsh") | buffer term://.//6717:/usr/bin/zsh | else | edit term://.//6717:/usr/bin/zsh | endif
+if bufexists("term://.//36444:/usr/bin/zsh") | buffer term://.//36444:/usr/bin/zsh | else | edit term://.//36444:/usr/bin/zsh | endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -199,13 +125,13 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 2814 - ((33 * winheight(0) + 22) / 44)
+let s:l = 44 - ((43 * winheight(0) + 22) / 44)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2814
-normal! 02|
-tabnext 3
+44
+normal! 0
+tabnext 1
 set stal=1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
