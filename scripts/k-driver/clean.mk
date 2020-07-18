@@ -9,7 +9,7 @@
 # ============================================================================ #
 # Default target
 # ============================================================================ #
-PHONY := cc_clean
+PHONY := kdriver_clean
 # ============================================================================ #
 # include utils variable
 # ============================================================================ #
@@ -31,11 +31,11 @@ cmd_end_clean =
 # ============================================================================ #
 # Init target
 # ============================================================================ #
-PHONY += __cc_clean_init
-cc_clean: __cc_clean_init $(obj_clean)
+PHONY += __kdriver_clean_init
+kdriver_clean: __kdriver_clean_init $(obj_clean)
 	$(call cmd,end_clean)
 
-__cc_clean_init:
+__kdriver_clean_init:
 	$(call cmd,init_clean)
 
 PHONY += $(obj_clean)
