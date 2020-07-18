@@ -29,6 +29,7 @@ export KERNELDIR mod_name
 CC := gcc
 LD := ld
 RM := rm
+MV := mv
 MKDIR:= mkdir
 AR:= ar
 RANLIB:= ranlib
