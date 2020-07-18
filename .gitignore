@@ -12,3 +12,6 @@ lib/
 #go file
 go.mod
 test_go/
+#cland
+compile_commands.json
+.clangd/

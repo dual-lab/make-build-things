@@ -7,14 +7,21 @@
 #  Setting it to 'cc'.
 #
 #  ############################################################################# #
-languages := golang
-install_language := golang
+languages := k-driver
+install_language := k-driver
 mode := color_
 debug := @
 
-src_root := test_go
+src_root := src
 dep_root := $(empty)
-mod_name := com.example
+
+# ############################################################################## #
+# Plugin variables definition
+# ############################################################################## #
+KERNELDIR := /lib/modules/$(shell uname -r)/build
+mod_name :=
+
+export KERNELDIR mod_name
 
 #  ############################################################################# #
 #  Command definition.
@@ -22,11 +29,14 @@ mod_name := com.example
 CC := gcc
 LD := ld
 RM := rm
+MV := mv
 MKDIR:= mkdir
 AR:= ar
 RANLIB:= ranlib
 DOCKER:= docker
 GIT:= git
 GO:= go
+INSMOD := insmod
+RMMOD := rmmod
 
-export CC LD RM MKDIR AR RANLIB DOCKER GIT GO mod_name
+export CC LD RM MKDIR AR RANLIB DOCKER GIT GO INSMOD RMMOD 
