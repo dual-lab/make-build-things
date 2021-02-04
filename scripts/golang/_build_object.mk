@@ -35,8 +35,8 @@ include $(root)/scripts/include.mk
 # ============================================================================ #
 # Format and sort inclued objects
 # ============================================================================ #
-obj_in := $(addprefix $(out_dir)/,$(patsubst %.go,%.o,$(src)))
-go_build_objects:= $(obj_in)
+obj_in := $(addprefix $(out_dir)/,$(notdir $(marker)))
+go_build_objects:= $(addsuffix .o, $(obj_in))
 dirs_built_in:= 
 
 ifneq ($(strip $(dirs)),$(empty))
@@ -44,7 +44,7 @@ dirs := $(sort $(patsubst %/,%,$(dirs)))
 dirs_built_in += $(addprefix $(out_dir)/,$(dirs))
 endif
 
-__internal_build : $(go_build_objects)
+__internal_build : $(go_build_objects) $(dirs_built_in)
 
 
 # ============================================================================ #
@@ -53,9 +53,8 @@ __internal_build : $(go_build_objects)
 quiet_cmd_go = GO $@
 color_cmd_go = $(c_yellow)$(quiet_cmd_go)
 cmd_go = $(GO) build -o $@ $<
-out_stem := $(addprefix $(out_dir)/,%.o)
-inp_stem := $(addprefix $(inp_dir)/,%.go)
-$(go_build_objects): $(out_stem) : $(inp_stem) 
+inp_stem := $(addprefix $(inp_dir)/,$(src))
+$(go_build_objects) : $(inp_stem) 
 	$(call cmd,go)
 
 # ============================================================================ #
