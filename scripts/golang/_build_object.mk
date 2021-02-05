@@ -52,7 +52,7 @@ __internal_build : $(go_build_objects) $(dirs_built_in)
 # ============================================================================ #
 quiet_cmd_go = GO $@
 color_cmd_go = $(c_yellow)$(quiet_cmd_go)
-cmd_go = $(GO) build -o $@ $<
+cmd_go = $(GO) build -o $@ $^
 inp_stem := $(addprefix $(inp_dir)/,$(src))
 $(go_build_objects) : $(inp_stem) 
 	$(call cmd,go)
