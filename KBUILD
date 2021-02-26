@@ -7,7 +7,7 @@
 #  Setting it to 'cc'.
 #
 #  ############################################################################# #
-languages := k-driver
+languages := asm
 install_language := k-driver
 mode := color_
 debug := @
@@ -20,8 +20,9 @@ dep_root := $(empty)
 # ############################################################################## #
 KERNELDIR := /lib/modules/$(shell uname -r)/build
 mod_name :=
+ASMFLAGS := -f elf64 -g dwarf2
 
-export KERNELDIR mod_name
+export KERNELDIR mod_name ASMFLAGS
 
 #  ############################################################################# #
 #  Command definition.
@@ -38,5 +39,6 @@ GIT:= git
 GO:= go
 INSMOD := insmod
 RMMOD := rmmod
+ASM := yasm
 
-export CC LD RM MKDIR AR RANLIB DOCKER GIT GO INSMOD RMMOD 
+export CC LD RM MKDIR AR RANLIB DOCKER GIT GO INSMOD RMMOD ASM
