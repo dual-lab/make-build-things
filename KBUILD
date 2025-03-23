@@ -31,6 +31,8 @@ CC := gcc
 LD := ld
 RM := rm
 MV := mv
+CP := cp
+INSTALL := install
 MKDIR:= mkdir
 AR:= ar
 RANLIB:= ranlib
@@ -40,5 +42,7 @@ GO:= go
 INSMOD := insmod
 RMMOD := rmmod
 ASM := yasm
+CTEX := pdflatex
+FTEX := .pdf
 
-export CC LD RM MKDIR AR RANLIB DOCKER GIT GO INSMOD RMMOD ASM
+export CC LD RM MKDIR AR RANLIB DOCKER GIT GO INSMOD RMMOD ASM CP INSTALL CTEX FTEX
