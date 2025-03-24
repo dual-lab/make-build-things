@@ -57,7 +57,7 @@ pkg_tex_out:= $(addprefix $(target_root)/,$(pkg_tex))
 res_tex_out:= $(addprefix $(target_root)/,$(res_tex))
 incl_tex_out:= $(addprefix $(target_root)/,$(included_tex))
 
-$(res_tex_out): $(res_tex)
+$(res_tex_out): $(addprefix $(target_root)/,%) : %
 	$(call cmd,install)
 
 $(cls_tex_out): $(cls_tex)
